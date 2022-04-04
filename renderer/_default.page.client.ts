@@ -1,14 +1,24 @@
-import { getPage } from 'vite-plugin-ssr/client'
-import { createApp } from './app'
-import type { PageContext } from './types'
-import type { PageContextBuiltInClient } from 'vite-plugin-ssr/client'
+import type {PageContext} from './types';
+import type {PageContextBuiltInClient} from 'vite-plugin-ssr/client';
+import {createApp} from './app';
+import {useClientRouter} from 'vite-plugin-ssr/client/router';
+import '~assets/css/index.css';
 
-hydrate()
+let app: ReturnType<typeof createApp>;
 
-async function hydrate() {
-  // We do Server Routing, but we can also do Client Routing by using `useClientRouter()`
-  // instead of `getPage()`, see https://vite-plugin-ssr.com/useClientRouter
-  const pageContext = await getPage<PageContextBuiltInClient & PageContext>()
-  const app = createApp(pageContext)
-  app.mount('#app')
-}
+const {hydrationPromise} = useClientRouter({
+  render(pageContext: PageContextBuiltInClient & PageContext) {
+    if (!app) {
+      app = createApp(pageContext);
+      app.mount('#app');
+    } else {
+      app.changePage(pageContext);
+    }
+
+    if (!pageContext.isHydration) {
+      document.title = pageContext.documentProps?.title ?? 'No title';
+    }
+  },
+});
+
+hydrationPromise;

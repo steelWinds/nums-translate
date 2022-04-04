@@ -1,55 +1,34 @@
 <template>
   <div class="layout">
-    <div class="navigation">
-      <a href="/" class="logo">
-        <img src="./logo.svg" height="64" width="64" alt="logo" />
-      </a>
-      <Link href="/">Home</Link>
-      <Link href="/about">About</Link>
+    <div class="content">
+      <slot />
     </div>
-    <div class="content"><slot /></div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import Link from './Link.vue'
 </script>
 
-<style>
-body {
-  margin: 0;
-  font-family: sans-serif;
-}
-* {
-  box-sizing: border-box;
-}
-a {
-  text-decoration: none;
-}
-</style>
-
-<style scoped>
+<style lang="postcss">
 .layout {
-  display: flex;
-  max-width: 900px;
-  margin: auto;
+  @apply
+    grid
+    grid-cols-1
+    auto-rows-auto
+    place-content-start
+    place-items-center
+    place-self-center;
+
+  inline-size: 100%;
+  block-size: 100%;
+  min-block-size: 100vh;
+  padding-block-start: 3rem;
+
+  background-color: var(--blue-color);
 }
+
 .content {
-  padding: 20px;
-  border-left: 2px solid #eee;
-  padding-bottom: 50px;
-  min-height: 100vh;
-}
-.navigation {
-  padding: 20px;
-  flex-shrink: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  line-height: 1.8em;
-}
-.logo {
-  margin-top: 20px;
-  margin-bottom: 10px;
+  @apply
+    w-full;
 }
 </style>

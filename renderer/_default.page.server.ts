@@ -1,22 +1,25 @@
-import { renderToString } from '@vue/server-renderer'
-import { escapeInject, dangerouslySkipEscape } from 'vite-plugin-ssr'
-import { createApp } from './app'
-import logoUrl from './logo.svg'
-import type { PageContext } from './types'
-import type { PageContextBuiltIn } from 'vite-plugin-ssr'
+/* eslint-disable require-jsdoc */
 
-export { render }
+import {renderToString} from '@vue/server-renderer';
+import {escapeInject, dangerouslySkipEscape} from 'vite-plugin-ssr';
+import {createApp} from './app';
+import logoUrl from './logo.svg';
+import type {PageContext} from './types';
+import type {PageContextBuiltIn} from 'vite-plugin-ssr';
+
+export {render};
 // See https://vite-plugin-ssr.com/data-fetching
-export const passToClient = ['pageProps', 'urlPathname']
+export const passToClient = ['pageProps', 'urlPathname', 'documentProps'];
 
 async function render(pageContext: PageContextBuiltIn & PageContext) {
-  const app = createApp(pageContext)
-  const appHtml = await renderToString(app)
+  const app = createApp(pageContext);
+
+  const appHtml = await renderToString(app);
 
   // See https://vite-plugin-ssr.com/head
-  const { documentProps } = pageContext
-  const title = (documentProps && documentProps.title) || 'Vite SSR app'
-  const desc = (documentProps && documentProps.description) || 'App using Vite + vite-plugin-ssr'
+  const title = pageContext.documentProps?.title ?? 'Nums Transliter';
+  const desc = pageContext.documentProps?.description ??
+    'Simple app for translate nums to ru-lang words';
 
   const documentHtml = escapeInject`<!DOCTYPE html>
     <html lang="en">
@@ -30,12 +33,12 @@ async function render(pageContext: PageContextBuiltIn & PageContext) {
       <body>
         <div id="app">${dangerouslySkipEscape(appHtml)}</div>
       </body>
-    </html>`
+    </html>`;
 
   return {
     documentHtml,
     pageContext: {
       // We can add some `pageContext` here, which is useful if we want to do page redirection https://vite-plugin-ssr.com/page-redirection
     },
-  }
+  };
 }
