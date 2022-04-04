@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --white-color: #FFFFFF;
+  --blue-color: #313770;
+  --purple-color: #9556FF;
+  --orange-color: rgb(239 99 101);
+  --orange-color-op1: rgb(239 99 101 / .1);
+}
+
+input[type="number"]::-webkit-inner-spin-button {
+  appearance: none;
+}
