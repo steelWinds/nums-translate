@@ -1,11 +1,11 @@
 {
   "scripts": {
+    "test": "vitest run",
     "dev": "npm run server",
     "prod": "npm run build && npm run server:prod",
     "build": "vite build && vite build --ssr",
     "server": "ts-node ./server",
-    "server:prod": "cross-env NODE_ENV=production ts-node ./server",
-    "test": "vitest"
+    "server:prod": "cross-env NODE_ENV=production ts-node ./server"
   },
   "dependencies": {
     "@faker-js/faker": "^6.1.1",
@@ -37,6 +37,7 @@
     "eslint": "^8.12.0",
     "eslint-config-google": "^0.14.0",
     "eslint-plugin-vue": "^8.5.0",
+    "husky": "^7.0.4",
     "postcss-preset-env": "^7.4.3"
   }
 }
