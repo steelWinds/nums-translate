@@ -23,7 +23,11 @@
 
     <VNumberInput
       v-model="converterModel"
-      class="w-full max-w-lg text-center"
+      type="text"
+      autofocus
+      inputmode="numeric"
+      maxlength="12"
+      class="w-full max-w-lg text-center text-base sm:text-2xl md:text-3xl"
     />
 
     <VOutput

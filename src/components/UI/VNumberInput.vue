@@ -1,22 +1,19 @@
 <template>
   <input
+    v-bind="attrs"
     v-model="model"
-    class="v-input text-base sm:text-2xl md:text-3xl"
-    type="text"
-    autofocus
-    inputmode="numeric"
-    maxlength="10"
+    class="v-input"
     data-testid="input-el"
   >
 </template>
 
 <script setup lang="ts">
-import {computed} from 'vue';
+import {computed, useAttrs} from 'vue';
 
+const attrs = useAttrs()
 const props = defineProps<{
   modelValue: string;
 }>();
-
 const emit = defineEmits<{(e: 'update:modelValue', value: string): void}>();
 
 const model = computed({
